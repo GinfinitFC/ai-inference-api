@@ -1,4 +1,3 @@
-# ai-inference-api
 # AI Inference API
 
 A FastAPI-based backend service that provides AI-powered text analysis, including sentiment analysis and summarization.
@@ -10,4 +9,4 @@ A FastAPI-based backend service that provides AI-powered text analysis, includin
 
 ## How to run
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
