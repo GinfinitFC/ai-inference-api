@@ -11,4 +11,4 @@ def analyze_sentiment(request: TextRequest):
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty")
 
-    return analyze_sentiment_logic(text)
+    return {"status":"success", "data":analyze_sentiment_logic(text)}

@@ -11,4 +11,4 @@ def summarize(request: TextRequest):
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text cannot be empty")
 
-    return summarize_text(text)
+    return {"status":"success", "data":summarize_text(text)}

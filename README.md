@@ -11,6 +11,7 @@ A modular backend service built with FastAPI that provides AI-powered text analy
 * RESTful API with FastAPI and automatic Swagger documentation
 * Input validation and schema enforcement using Pydantic
 * Modular architecture (routes, services, models) for scalability and maintainability
+* Batch processing endpoint for handling multiple inference requests efficiently
 
 ---
 
@@ -30,6 +31,8 @@ A modular backend service built with FastAPI that provides AI-powered text analy
 app/
 ├── main.py
 ├── routes/
+|__ |__ batch.py
+|__ |__ health.py
 │   ├── sentiment.py
 │   └── summarize.py
 ├── services/
@@ -73,8 +76,10 @@ uvicorn app.main:app --reload
 
 ```json
 {
-  "sentiment": "positive",
-  "score": 0.75
+  "status": "success",
+  "data":
+    "sentiment": "positive",
+    "score": 0.75
 }
 ```
 
@@ -94,7 +99,51 @@ uvicorn app.main:app --reload
 
 ```json
 {
-  "summary": "Shortened version of the text"
+  "status": "success",
+  "data": "Shortened version of the text"
+}
+```
+---
+
+### 🔹 Batch Sentiment Analysis
+
+**POST** `/analyze/batch`
+
+Analyze multiple texts in a single request.
+This endpoint simulates real-world API usage where multiple inputs are processed efficiently in a single call.
+
+**Request:**
+
+```json
+{
+  "status": "success",
+  "texts": [
+    "The economy is doing great",
+    "This situation is bad",
+    "I feel neutral about this"
+  ]
+}
+```
+
+**Response:**
+
+```json
+{
+  "status": "success",
+  "results": [
+    {
+      "sentiment": "positive",
+      "score": 0.8
+    },
+    {
+      "sentiment": "negative",
+      "score": -0.6
+    },
+    {
+      "sentiment": "neutral",
+      "score": 0.0
+    }
+  ]
 }
 ```
 
@@ -130,7 +179,6 @@ You can test all endpoints directly from the browser.
 
 ## 🚧 Future Improvements
 
-* Batch processing endpoint
 * Async request handling
 * Caching layer for repeated requests
 * Docker containerization
